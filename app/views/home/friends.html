@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %} Профиль {% endblock %}
+
+{% block body %}
+
+    <div class="container -flex">
+        <div class="side-bar -left">
+            <div class="block__header"></div>
+        </div>
+        <div class="block -feed">
+            <div class="block__header">
+                <h1 class="title-small">Мои друзья</h1>
+            </div>
+            <div class="block__body -flex">
+                {% for friend in friends %}
+                    <div class="card">
+                        <img class="card__image" src="http://placehold.it/80x80" />
+                        <div class="card__text">
+                            <div class="card__title">{{ friend.first_name }} {{ friend.last_name }}</div>
+                            <div class="card__description">...</div>
+                        </div>
+                        <div class="card__action">
+                            <a href="/public/index.php?home/friend-remove&id={{ friend.id }}" class="button -grey">Удалить</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

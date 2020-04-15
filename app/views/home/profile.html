@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %} Мой профиль {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="photo-cover" style="background-image: url('http://placehold.it/960x320')">
+            <div class="avatar">
+                <div class="avatar__photo" style="background-image: url('http://placehold.it/168x168')"></div>
+            </div>
+        </div>
+        <div class="headers -align-center">
+            <h1 class="title -profile-name">{{ user.first_name }} {{ user.last_name }}</h1>
+            <p class="subtitle">I'm the fake person</p>
+            <a href="/public/index.php?home/profile-edit" class="link -edit">Редактировать</a>
+        </div>
+        <div class="info">
+            <div class="info__menu">
+                <span class="info__title">Информация</span>
+            </div>
+            <div class="info__content">
+                <ul class="info-list">
+                    <li class="info-list">
+                        <span class="info-list__item-title">Имя: </span> {{ user.first_name }}
+                    </li>
+                    <li class="info-list__item">
+                        <span class="info-list__item-title">Фамилия: </span> {{ user.last_name }}
+                    </li>
+                    <li class="info-list__item">
+                        <span class="info-list__item-title">Дата рождения: </span> {{ user.birthday }}
+                    </li>
+                    <li class="info-list__item">
+                        <span class="info-list__item-title">Пол: </span> {{ user.gender }}
+                    </li>
+                    <li class="info-list__item">
+                        <span class="info-list__item-title">Страна: </span> {{ user.country }}
+                    </li>
+                    <li class="info-list__item">
+                        <span class="info-list__item-title">Город: </span> {{ user.city }}
+                    </li>
+                    <li class="info-list__item">
+                        <span class="info-list__item-title">Интересы: </span> {{ user.interests }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

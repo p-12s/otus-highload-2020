@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <nav class="menu">
+        <a href="/public/index.php?home/profile" class="menu__link">Мой профиль</a>
+        <a href="/public/index.php?home/feed" class="menu__link">Лента</a>
+        <a href="/public/index.php?home/friends" class="menu__link">Друзья</a>
+        <a href="/public/index.php?search/people" class="menu__link">Поиск</a>
+        <a href="/public/index.php?site/logout" class="menu__link">Выйти</a>
+    </nav>
+
+    {% block body %}
+
+    {% endblock %}
+
+</body>
+</html>

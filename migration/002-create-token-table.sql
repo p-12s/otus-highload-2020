@@ -1,6 +1,0 @@
-CREATE TABLE `token` (
-	`id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `token` varchar(255) NOT NULL,
-    `user_id` int(11) NOT NULL,
-    FOREIGN KEY user_id_fk(user_id) REFERENCES user(id) ON UPDATE CASCADE ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;

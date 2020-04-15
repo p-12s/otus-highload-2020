@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %} Поиск на Clonebook {% endblock %}
+
+{% block body %}
+
+    <div class="container -flex">
+        <div class="side-bar -left">
+            <div class="block__header">
+                <span class="title_filter">Фильтровать результаты</span>
+            </div>
+        </div>
+        <div class="block -feed">
+            <div class="block__header">
+                <h1 class="title-small">Люди</h1>
+            </div>
+            <div class="block__body -flex">
+                {% for user in users %}
+                    <div class="card">
+                        <img class="card__image" src="http://placehold.it/80x80" />
+                        <div class="card__text">
+                            <div class="card__title">{{ user.first_name }} {{ user.last_name }}</div>
+                            <div class="card__description">...</div>
+                        </div>
+                        <div class="card__action">
+                            <a href="/public/index.php?home/friend-add&id={{ user.id }}" class="button -grey">Дружить</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
