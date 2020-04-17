@@ -19,14 +19,15 @@ class Site extends \Core\Controller
     public function logoutAction()
     {
         setcookie('FBID', '', time() - 60 * 60 * 24, '/', null, null, true);
-        header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME'] . '/public/index.php?site/login');
+        header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME'] . '/index.php?site/login');
     }
 
     public function loginAction()
     {
         $user = User::getCurrentUser();
+
         if (!empty($user)) {
-            header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME'] . '/public/index.php?home/feed');
+            header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME'] . '/index.php?home/feed');
         }
 
         // вывод страницы авторизации/регистрации
@@ -43,19 +44,19 @@ class Site extends \Core\Controller
 
             if (!empty($errors)) {
                 header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-                    . '/public/index.php?site/login');
+                    . '/index.php?site/login');
                 return;
             }
 
             $user = User::getUserByEmail($loginEmail);
             if (!$user) {
                 header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-                    . '/public/index.php?site/login');
+                    . '/index.php?site/login');
                 return;
             }
             if (!password_verify($loginPassword, $user[0]['password'])) {
                 header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-                    . '/public/index.php?site/login');
+                    . '/index.php?site/login');
                 return;
             }
             // создать токен и обновить в бд
@@ -65,7 +66,7 @@ class Site extends \Core\Controller
 
             setcookie('FBID', $token, time() + 60 * 60 * 24 * 7, '/', null, null, true);
             header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-                . '/public/index.php?home/profile');
+                . '/index.php?home/profile');
             return;
         }
 
@@ -81,7 +82,7 @@ class Site extends \Core\Controller
 
         if (!empty($errors)) {
             header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-                . '/public/index.php?site/login');
+                . '/index.php?site/login');
             return;
         }
 
@@ -101,6 +102,6 @@ class Site extends \Core\Controller
         $user->save();
 
         setcookie('FBID', $user->token, time() + 60 * 60 * 24 * 7, '/', null, null, true);
-        header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME'] . '/public/index.php?home/profile');
+        header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME'] . '/index.php?home/profile');
     }
 }

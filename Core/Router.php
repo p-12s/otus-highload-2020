@@ -2,6 +2,8 @@
 
 namespace Core;
 
+use App\Controllers\Site;
+
 class Router
 {
     protected $routes = [];
@@ -12,9 +14,7 @@ class Router
     {
         $route = preg_replace('/\//', '\\/', $route);
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
-
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
-
         $route = '/^'. $route . '$/i';
 
         $this->routes[$route] = $params;
@@ -66,12 +66,11 @@ class Router
         $controller = $this->getNamespace() . $controller;
 
         if (!class_exists($controller)) {
-            throw new \Exception("Class $controller not found");
+            throw new \Exception(".Class $controller not found");
         }
         $controller_object = new $controller($this->params);
         $action = $this->params['action'];
         $action = $this->convertToCamelCase($action);
-
         if (!is_callable([$controller_object, $action])) {
             throw new \Exception("Method $action (in controller $controller) not found");
         }

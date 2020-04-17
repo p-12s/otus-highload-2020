@@ -31,7 +31,7 @@ abstract class Controller
     {
         $user = User::getCurrentUser();
         if (empty($user)) {
-            header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME'] . '/public/index.php?site/login');
+            header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME'] . '/index.php?site/login');
         }
     }
 

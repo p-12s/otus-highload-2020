@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %} Мой профиль {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="headers">
+            <h1 class="title -profile-name">{{ user.first_name }} {{ user.last_name }}</h1>
+        </div>
+        <div class="info">
+            <div class="info__menu">
+                <span class="info__title">Редактирование информации</span>
+            </div>
+            <div class="info__content">
+                <form action="index.php?home/profile-edit" method="post" name="user-sign-up" class="edit-form">
+                    <div class="field">
+                        <div class="edit-form__group">
+                            <label for="country" class="edit-form__label">
+                                <span class="edit-form__title">Страна:</span>
+                                <input type="text" name="country" class="edit-form__input">
+                            </label>
+                        </div>
+                        <div class="edit-form__group">
+                            <label for="city" class="edit-form__label">
+                                <span class="edit-form__title">Город:</span>
+                                <input type="text" name="city" class="edit-form__input">
+                            </label>
+                        </div>
+                        <div class="edit-form__group">
+                            <label for="interests" class="edit-form__label">
+                                <span class="edit-form__title">Интересы:</span>
+                                <textarea name="interests" id="" cols="30" rows="10" class="edit-form__textarea"></textarea>
+                            </label>
+                        </div>
+                        <div class="edit-form__group">
+                            <input type="submit" value="Сохранить" class="edit-form__submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

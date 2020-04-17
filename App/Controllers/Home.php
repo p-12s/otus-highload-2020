@@ -45,13 +45,13 @@ class Home extends \Core\Controller
 
             if (!empty($errors)) {
                 header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-                    . '/public/index.php?home/profile-edit');
+                    . '/index.php?home/profile-edit');
                 return;
             }
 
             User::updateUserInfo($country, $city, $interests);
             header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-                . '/public/index.php?home/profile');
+                . '/index.php?home/profile');
             return;
         }
 
@@ -96,7 +96,7 @@ class Home extends \Core\Controller
         }
 
         header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-            . '/public/index.php?home/friends');
+            . '/index.php?home/friends');
     }
 
     /**
@@ -109,6 +109,6 @@ class Home extends \Core\Controller
         }
 
         header('Location: '. $_SERVER['REQUEST_SCHEME'] . '://'. $_SERVER['SERVER_NAME']
-            . '/public/index.php?search/people');
+            . '/index.php?search/people');
     }
 }
