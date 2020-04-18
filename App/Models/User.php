@@ -74,6 +74,22 @@ class User extends \Core\Model
         }
     }
 
+    public static function getUserById($id)
+    {
+        try {
+            if (!isset($id) || empty($id)) {
+                return null;
+            }
+
+            $db = parent::getDB();
+            $stmt = $db->query("SELECT * FROM `user` WHERE id=". $id);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (\PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
     public static function getAll()
     {
         try {

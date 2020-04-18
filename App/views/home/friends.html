@@ -15,9 +15,13 @@
             <div class="block__body -flex">
                 {% for friend in friends %}
                     <div class="card">
-                        <img class="card__image" src="http://placehold.it/80x80" />
+                        <a href="/index.php?show/profile&id={{ friend.id }}" title="{{ friend.first_name }} {{ friend.last_name }}">
+                            <img class="card__image" src="http://placehold.it/80x80" />
+                        </a>
                         <div class="card__text">
-                            <div class="card__title">{{ friend.first_name }} {{ friend.last_name }}</div>
+                            <a href="/index.php?show/profile&id={{ friend.id }}" title="{{ friend.first_name }} {{ friend.last_name }}">
+                                {{ friend.first_name }} {{ friend.last_name }}
+                            </a>
                             <div class="card__description">...</div>
                         </div>
                         <div class="card__action">

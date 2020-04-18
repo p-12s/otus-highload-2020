@@ -17,9 +17,15 @@
             <div class="block__body -flex">
                 {% for user in users %}
                     <div class="card">
-                        <img class="card__image" src="http://placehold.it/80x80" />
+                        <a href="/index.php?show/profile&id={{ user.id }}" title="{{ user.first_name }} {{ user.last_name }}">
+                            <img class="card__image" src="http://placehold.it/80x80" />
+                        </a>
                         <div class="card__text">
-                            <div class="card__title">{{ user.first_name }} {{ user.last_name }}</div>
+                            <div class="card__title">
+                                <a href="/index.php?show/profile&id={{ user.id }}" title="{{ user.first_name }} {{ user.last_name }}">
+                                    {{ user.first_name }} {{ user.last_name }}
+                                </a>
+                            </div>
                             <div class="card__description">...</div>
                         </div>
                         <div class="card__action">
