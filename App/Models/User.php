@@ -66,7 +66,7 @@ class User extends \Core\Model
             }
 
             $db = parent::getDB();
-            $stmt = $db->query("SELECT * FROM `user` WHERE email='". $email ."' LIMIT 1");
+            $stmt = $db->query("SELECT * FROM `user` WHERE email='". htmlspecialchars($email) ."' LIMIT 1");
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (\PDOException $e) {
@@ -82,7 +82,7 @@ class User extends \Core\Model
             }
 
             $db = parent::getDB();
-            $stmt = $db->query("SELECT * FROM `user` WHERE id=". $id);
+            $stmt = $db->query("SELECT * FROM `user` WHERE id=". htmlspecialchars($id));
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         } catch (\PDOException $e) {

@@ -69,8 +69,8 @@ class Friend extends \Core\Model
     {
         try {
             $db = parent::getDB();
-            $stmt = $db->query('SELECT * FROM `friend` WHERE id_user=' . $userId
-                . ' AND id_friend=' . $potentialFriendId);
+            $stmt = $db->query('SELECT * FROM `friend` WHERE id_user=' . htmlspecialchars($userId)
+                . ' AND id_friend=' . htmlspecialchars($potentialFriendId));
             $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             return (!empty($response));
