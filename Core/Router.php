@@ -15,7 +15,7 @@ class Router
         $route = preg_replace('/\//', '\\/', $route);
         $route = preg_replace('/\{([a-z]+)\}/', '(?P<\1>[a-z-]+)', $route);
         $route = preg_replace('/\{([a-z]+):([^\}]+)\}/', '(?P<\1>\2)', $route);
-        $route = '/^'. $route . '$/i';
+        $route = '/^'. $route . '/i';
 
         $this->routes[$route] = $params;
     }
@@ -37,6 +37,9 @@ class Router
 
     public function match($url)
     {
+        //echo '<pre>:';print_r($url);echo '</pre>';
+        //echo '<pre>$this->routes:';print_r($this->routes);echo '</pre>'; exit();
+
         foreach ($this->routes as $route => $params) {
             if (preg_match($route, $url, $matches)) {
                 foreach ($matches as $key => $match) {
@@ -54,10 +57,15 @@ class Router
 
     public function dispatch($url)
     {
+        /*echo '<pre>';print_r($this->routes);echo '</pre>';
+        echo '<pre>';print_r($this->getParams);echo '</pre>';
+        echo '<pre>';print_r($this->params);echo '</pre>';
+        exit();*/
         $queryArr = $this->parseQueryString($url);
         $this->getParams = $queryArr['getParams'];
 
         if (!$this->match($queryArr['controllerWithAction'])) {
+
             throw new \Exception('No route matched', 404);
         }
 
@@ -74,7 +82,12 @@ class Router
         if (!is_callable([$controller_object, $action])) {
             throw new \Exception("Method $action (in controller $controller) not found");
         }
-        $controller_object->$action($this->getParams);
+
+        try {
+            $controller_object->$action($this->getParams);
+        } catch (\Exception $e) {
+            echo '<pre>';print_r($e);echo '</pre>';exit();
+        }exit();
     }
 
     /**

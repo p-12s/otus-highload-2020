@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %} Сообщения {% endblock %}
+
+{% block body %}
+
+    <div class="container -flex">
+        <div class="side-bar -left">
+            <div class="block__header"></div>
+        </div>
+        <div class="block -feed">
+            <div class="block__header">
+                <h1 class="title-small">Мои сообщения</h1>
+            </div>
+            <div class="block__body">
+                {% for mess in messages %}
+                    <div class="item-message-container -flex">
+                        <p class="item-message {{ mess.id_user_sender == userId ? 'myself-message' : 'friend-message' }}">
+                            {{ mess.text }}
+                        </p>
+                    </div>
+                {% endfor %}
+                <div class="message-writing">
+                    <form action="" method="post">
+                        <input type="hidden" name="id_user_sender" value="{{ userId }}">
+                        <input type="hidden" name="id_user_recipient" value="{{ id_user_recipient }}">
+                        <textarea name="message" id="" cols="65" rows="3"></textarea>
+                        <button type="submit">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

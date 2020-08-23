@@ -9,12 +9,17 @@
             <div class="block__header">
                 <span class="title_filter">Фильтровать результаты</span>
             </div>
+            <form action="/index.php?search/people&" method="get">
+                <input name="s" placeholder="Искать здесь..." type="search" class="search-bar">
+                <button type="submit">Поиск</button>
+            </form>
         </div>
         <div class="block -feed">
             <div class="block__header">
                 <h1 class="title-small">Люди</h1>
             </div>
             <div class="block__body -flex">
+                {{ searchResult }}
                 {% for user in users %}
                     <div class="card">
                         <a href="/index.php?show/profile&id={{ user.id }}" title="{{ user.first_name }} {{ user.last_name }}">

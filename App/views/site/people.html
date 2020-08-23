@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %} Поиск на Clonebook {% endblock %}
+
+{% block body %}
+
+<div class="container -flex">
+
+    <div class="side-bar -left">
+        <!--
+            <div class="block__header">
+                <span class="title_filter">Фильтровать результаты</span>
+            </div>
+            <form action="/index.php?search/people&" method="get">
+                <input name="s" placeholder="Искать здесь..." type="search" class="search-bar">
+                <button type="submit">Поиск</button>
+            </form>
+        -->
+    </div>
+    <div class="block -feed">
+        <div class="block__header">
+            <h1 class="title-small">
+                Результат поиска
+                {% if people|length > 0 %}
+                    <span>({{ people|length }})</span>
+                {% endif %}
+            </h1>
+        </div>
+        <div class="block__body -flex">
+            {{ searchResult }}
+
+            {% if people|length == 0 %}
+                <p>К сожалению, вашего друга тут нет</p>
+            {% endif %}
+
+            {% for person in people %}
+            <div class="card">
+                <a href="/index.php?show/profile&id={{ person.id }}" title="{{ person.first_name }} {{ person.last_name }}">
+                    <img class="card__image" src="http://placehold.it/80x80" />
+                </a>
+                <div class="card__text">
+                    <div class="card__title">
+                        <a href="/index.php?show/profile&id={{ person.id }}" title="{{ person.first_name }} {{ person.last_name }}">
+                            {{ person.first_name }} {{ person.last_name }}
+                        </a>
+                    </div>
+                    <div class="card__description">...</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

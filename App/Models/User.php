@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use PDO;
+use MySQLi;
 
 class User extends \Core\Model
 {
@@ -33,10 +33,11 @@ class User extends \Core\Model
                 .'\''. $this->gender .'\'';
 
             $db = parent::getDB();
-            $sql = "INSERT INTO `user` VALUES ($value)";
-            $db->exec($sql);
+            $stmt = $db->prepare("INSERT INTO `user` VALUES ($value)");
+            $stmt->execute();
+            $stmt->close();
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -50,10 +51,13 @@ class User extends \Core\Model
 
             $db = parent::getDB();
             $token = sha1($_COOKIE['FBID']);
-            $stmt = $db->query("SELECT * FROM `user` WHERE token ='". $token ."' LIMIT 1");
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $db->prepare("SELECT * FROM `user` WHERE token ='". $token ."' LIMIT 1");
+            $stmt->execute();
+            $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $arr;
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -66,10 +70,13 @@ class User extends \Core\Model
             }
 
             $db = parent::getDB();
-            $stmt = $db->query("SELECT * FROM `user` WHERE email='". htmlspecialchars($email) ."' LIMIT 1");
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $db->prepare("SELECT * FROM `user` WHERE email='". htmlspecialchars($email) ."' LIMIT 1");
+            $stmt->execute();
+            $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $arr;
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -82,22 +89,30 @@ class User extends \Core\Model
             }
 
             $db = parent::getDB();
-            $stmt = $db->query("SELECT * FROM `user` WHERE id=". htmlspecialchars($id));
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $db->prepare('SELECT * FROM `user` WHERE id=' . htmlspecialchars($id));
+            $stmt->execute();
+            $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $arr;
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
 
-    public static function getAll()
+    public static function getAll($limit = null)
     {
         try {
             $db = parent::getDB();
-            $stmt = $db->query('SELECT * FROM `user`');
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt = $limit
+                ? $db->prepare('SELECT * FROM `user` ORDER BY id ASC LIMIT '. $limit)
+                : $db->prepare('SELECT * FROM `user` ORDER BY id ASC');
+            $stmt->execute();
+            $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $arr;
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -110,11 +125,12 @@ class User extends \Core\Model
             }
 
             $db = parent::getDB();
-            $sql = "UPDATE `user` SET token='". sha1(htmlspecialchars($token))
-                ."' WHERE email='". htmlspecialchars($email) ."'";
-            $db->exec($sql);
+            $stmt = $db->prepare("UPDATE `user` SET token='". sha1(htmlspecialchars($token))
+                ."' WHERE email='". htmlspecialchars($email) ."'");
+            $stmt->execute();
+            $stmt->close();
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -128,13 +144,30 @@ class User extends \Core\Model
             }
 
             $db = parent::getDB();
-            $sql = "UPDATE `user` SET country='". htmlspecialchars($country) ."',"
+            $stmt = $db->prepare("UPDATE `user` SET country='". htmlspecialchars($country) ."',"
                 ." city='". htmlspecialchars($city) ."',"
                 ." interests='". htmlspecialchars($interests) ."' "
-                . ' WHERE id=' . $user[0]['id'];
-            $db->exec($sql);
+                . ' WHERE id=' . $user[0]['id']);
+            $stmt->execute();
+            $stmt->close();
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
+            echo $e->getMessage();
+        }
+    }
+
+    public static function findUsersByName($firstName, $lastName)
+    {
+        try {
+            $db = parent::getDB();
+            $stmt = $db->prepare("SELECT * FROM `user` WHERE first_name like '".$firstName
+                ."' and last_name like '".$lastName."' OR first_name like '".$lastName
+                ."' and last_name like '".$firstName."'");
+            $stmt->execute();
+            $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $arr;
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }

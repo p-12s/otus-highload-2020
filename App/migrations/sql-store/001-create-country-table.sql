@@ -1,4 +1,0 @@
-CREATE TABLE `country` (
-    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    `name` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;

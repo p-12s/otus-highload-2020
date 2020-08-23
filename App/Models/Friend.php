@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use PDO;
+use MySQLi;
 use App\Models\User;
 
 class Friend extends \Core\Model
@@ -16,13 +16,16 @@ class Friend extends \Core\Model
             }
 
             $db = parent::getDB();
-            $stmt = $db->query('SELECT * FROM `user` WHERE id in 
+            $stmt = $db->prepare('SELECT * FROM `user` WHERE id in 
                                             (SELECT f.id_friend FROM `user` AS u 
                                             INNER JOIN `friend` as f ON f.id_user = u.id
                                             WHERE u.id =' . $user[0]['id'] . ')');
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return $arr;
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -36,11 +39,11 @@ class Friend extends \Core\Model
             }
 
             $db = parent::getDB();
-            $sql = 'DELETE FROM `friend` WHERE id_user=' . $user[0]['id']
-                . ' AND id_friend=' . htmlspecialchars($userId);
-            $db->exec($sql);
-
-        } catch (\PDOException $e) {
+            $stmt = $db->prepare('DELETE FROM `friend` WHERE id_user=' . $user[0]['id']
+                . ' AND id_friend=' . htmlspecialchars($userId));
+            $stmt->execute();
+            $stmt->close();
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -57,10 +60,12 @@ class Friend extends \Core\Model
             }
 
             $db = parent::getDB();
-            $sql = 'INSERT INTO `friend` VALUES (DEFAULT, ' . $user[0]['id'] . ', ' . htmlspecialchars($userId) .')';
-            $db->exec($sql);
+            $stmt = $db->prepare('INSERT INTO `friend` VALUES (DEFAULT, ' . $user[0]['id']
+                . ', ' . htmlspecialchars($userId) .')');
+            $stmt->execute();
+            $stmt->close();
 
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }
@@ -69,13 +74,14 @@ class Friend extends \Core\Model
     {
         try {
             $db = parent::getDB();
-            $stmt = $db->query('SELECT * FROM `friend` WHERE id_user=' . htmlspecialchars($userId)
+            $stmt = $db->prepare('SELECT * FROM `friend` WHERE id_user=' . htmlspecialchars($userId)
                 . ' AND id_friend=' . htmlspecialchars($potentialFriendId));
-            $response = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt->execute();
+            $arr = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+            $stmt->close();
+            return (!empty($arr));
 
-            return (!empty($response));
-
-        } catch (\PDOException $e) {
+        } catch (\Exception $e) {
             echo $e->getMessage();
         }
     }

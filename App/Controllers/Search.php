@@ -19,12 +19,17 @@ class Search extends \Core\Controller
     /**
      * Друзья
      */
-    public function peopleAction()
+    public function peopleAction($params = [])
     {
-        $users = User::getAll();
+        $searchResult = isset($params['s']) ? $params['s'] : 'nope';
+
+        // если поиск не пришел - выводим 20
+        // иначе - ищем пришедший ключ
+        $users = User::getAll(20);
 
         View::renderTemplate('search/people.html', [
-            'users' => $users
+            'users' => $users,
+            'searchResult' => $searchResult
         ]);
     }
 }

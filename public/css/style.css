@@ -364,11 +364,47 @@ body {
 .edit-form__submit {
     margin-left: 100px;
 }
-
-
-
-
-
+.search-bar {
+    margin: 0 0 11px 0;
+    width: 144px;
+}
+.link-finder {
+    display: inline-block;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 3px;
+    border: 1px solid #ec64a9;
+    min-width: 200px;
+    text-align: center;
+    background-color: #d8c6df;
+}
+.link-finder:hover {
+    opacity: .8;
+}
+.link-finder-small {
+    font-size: 12px;
+    padding: 8px 0 0 0;
+    display: inline-block;
+}
+.message-writing {
+    margin-top: 20px;
+}
+.item-message-container {
+    align-items: flex-end;
+}
+.item-message {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 9px;
+    margin: 3px;
+}
+.myself-message {
+    background-color: #00B3FF;
+    margin-left: auto;
+}
+.friend-message {
+    background-color: #C6C6C6;
+}
 
 
 
