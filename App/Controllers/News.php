@@ -7,10 +7,10 @@ use \Core\View;
 use App\Models\User;
 use App\Models\Friend;
 use App\Models\Message;
-use App\Models\Utils\Post;
+use App\Models\Post;
 use MySQLi;
 
-class Home extends \Core\Controller
+class News extends \Core\Controller
 {
     protected function before()
     {
@@ -22,15 +22,20 @@ class Home extends \Core\Controller
     }
 
     /**
-     * Профиль юзера
+     * Save user post (news)
      */
-    public function profileAction()
+    public function saveAction()
     {
         $user = User::getCurrentUser();
-        // echo '<pre>';print_r($user);echo '</pre>';exit();
-        View::renderTemplate('home/profile.html', [
-            'user' => $user[0]
-        ]);
+        if (!empty($_POST) && !empty($user)) {
+            $user = User::getCurrentUser();
+            $post = new Post();
+            $post->id_author = $user[0]['id'];
+            $post->text = $_POST['text'];
+
+            $post->save();
+        }
+        header('Location: '. $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] .'/index.php?home/feed');
     }
 
     /**
@@ -40,7 +45,7 @@ class Home extends \Core\Controller
     {
         if (!empty($_POST)) {
             $errors = array();
-            $country = Post::prepareUserInput($errors, $_POST['country']); // TODO Post - переименовать, путается с постами пользователя
+            $country = Post::prepareUserInput($errors, $_POST['country']);
             $city = Post::prepareUserInput($errors, $_POST['city']);
             $interests = Post::prepareUserInput($errors, $_POST['interests']);
 
@@ -69,10 +74,9 @@ class Home extends \Core\Controller
     public function feedAction()
     {
         $user = User::getCurrentUser();
-        $posts = \App\Models\Post::getCurrentUserPosts($user[0]['id'], 10);
+
         View::renderTemplate('home/feed.html', [
-            'user' => $user,
-            'posts' => $posts
+            'user' => $user
         ]);
     }
 

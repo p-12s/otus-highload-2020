@@ -12,7 +12,32 @@
             <div class="block__header">
                 <h1 class="title-small">Лента новостей</h1>
             </div>
-            <div class="block__body -flex">
+            <div class="block__body -flex -my-post">
+                <h3>Что у вас нового?</h3>
+                <form action="/index.php?news/save" method="post" class="my-post-form">
+                    <textarea name="text" rows="2"></textarea>
+                    <button type="submit">Отправить</button>
+                </form>
+            </div>
+            <div class="block__body -flex -flex-column">
+                {% for post in posts %}
+                    <div class="card">
+                        <a href="/index.php?show/profile&id={{ post.id_author }}" title="{{ post.name }}">
+                            <img class="card__image" src="http://placehold.it/80x80">
+                        </a>
+                        <div class="card__text -post">
+                            <a href="/index.php?show/profile&id={{ post.id_author }}" title="{{ post.name }}">
+                                {{ post.name }}
+                            </a>
+                            <div class="card__description">
+                                <div class="post">
+                                    <p class="post__date">{{ post.date }}</p>
+                                    <p class="post__text">{{ post.text }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

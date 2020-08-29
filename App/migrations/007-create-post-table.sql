@@ -1,0 +1,7 @@
+CREATE TABLE `post` (
+    `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `id_author` int(11) NOT NULL,
+    `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `text` longtext NOT NULL,
+    FOREIGN KEY id_author_fk(id_author) REFERENCES user(id) ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

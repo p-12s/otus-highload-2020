@@ -23,6 +23,7 @@ abstract class Model
         }
         return $db;
     }
+
     protected static function getShardedDBs()
     {
         mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);

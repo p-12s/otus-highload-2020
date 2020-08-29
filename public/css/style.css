@@ -184,7 +184,7 @@ body {
 .card {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     width: 100%;
 }
 .card.-half {
@@ -204,6 +204,9 @@ body {
     color: #65676b;
     margin: 0 15px;
     width: 55%;
+}
+.card__text.-post {
+    width: 100%;
 }
 .card__title {
     color: #000;
@@ -313,7 +316,7 @@ body {
     line-height: 2em;
     color: #90949c;
 }
-.-flex-column {
+.block__body.-flex.-flex-column {
     flex-direction: column;
 }
 .field__select {
@@ -405,11 +408,18 @@ body {
 .friend-message {
     background-color: #C6C6C6;
 }
-
-
-
-
-
+.block__body.-my-post {
+    padding: 5px;
+    flex-direction: column;
+}
+.my-post-form textarea {
+    width: 100%;
+}
+.post__date {
+    color: #ccc;
+    font-size: 12px;
+    padding-bottom: 10px;
+}
 
 
 
