@@ -13,7 +13,30 @@
                 <span class="info__title">Редактирование информации</span>
             </div>
             <div class="info__content">
-                <form action="index.php?home/profile-edit" method="post" name="user-sign-up" class="edit-form">
+                <!--
+                onsubmit="ym(66973402,'reachGoal','test_test_2'); return true;"
+                onsubmit="gtag('event', 'conversion', {'send_to': 'AW-980861296/label-2'}); return true;"
+                gtag('event', 'action-2', {
+                  'event_category': 'conversion',
+                  'event_label': 'label-2',
+                  'value': '1'
+                });
+                
+                ym(66973402,'reachGoal','test_test_2'); 
+                gtag('event', 'action-2', {
+                  'event_category': 'conversion',
+                  'event_label': 'label-2',
+                  'value': 10
+                }); return true;
+                -->
+                <form action="index.php?home/profile-edit" method="post" 
+                    onsubmit="ym(66973402,'reachGoal','test_test_2'); 
+                        gtag('event', 'action-2', {
+                          'event_category': 'conversion',
+                          'event_label': 'label-2',
+                          'value': 10
+                        }); return true;"
+                    name="user-sign-up" class="edit-form">
                     <div class="field">
                         <div class="edit-form__group">
                             <label for="country" class="edit-form__label">

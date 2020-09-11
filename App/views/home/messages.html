@@ -21,7 +21,8 @@
                     </div>
                 {% endfor %}
                 <div class="message-writing">
-                    <form action="" method="post">
+                    <form action="" method="post" 
+                        onsubmit="ym(66973402,'reachGoal','test_test_3'); return true;">
                         <input type="hidden" name="id_user_sender" value="{{ userId }}">
                         <input type="hidden" name="id_user_recipient" value="{{ id_user_recipient }}">
                         <textarea name="message" id="" cols="65" rows="3"></textarea>

@@ -13,7 +13,26 @@
         <div class="headers -align-center">
             <h1 class="title -profile-name">{{ user.first_name }} {{ user.last_name }}</h1>
             <p class="subtitle">I'm the fake person</p>
-            <a href="/index.php?home/profile-edit" class="link -edit">Редактировать</a>
+            <!--
+            onclick="ym(66973402,'reachGoal','test_test_1'); return true;"
+            
+            onclick="gtag('event', 'conversion', {'send_to': 'AW-980861296/label-1'}); return true;"
+            
+            ym(66973402,'reachGoal','test_test_1');
+            gtag('event', 'action-1', {
+              'event_category': 'conversion',
+              'event_label': 'label-1',
+              'value': 10
+            }); return true;
+            -->
+            <a href="/index.php?home/profile-edit" class="link -edit" 
+                onclick="ym(66973402,'reachGoal','test_test_1');
+                    gtag('event', 'action-1', {
+                      'event_category': 'conversion',
+                      'event_label': 'label-1',
+                      'value': 10
+                    }); return true;">
+                Редактировать</a>
         </div>
         <div class="info">
             <div class="info__menu">
