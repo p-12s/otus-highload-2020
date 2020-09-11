@@ -7,8 +7,11 @@ use \Core\View;
 use App\Models\User;
 use App\Models\Friend;
 use App\Models\Message;
+use App\Models\Queue;
 use App\Models\Utils\Post;
 use MySQLi;
+use PhpAmqpLib\Connection\AMQPStreamConnection;
+use PhpAmqpLib\Message\AMQPMessage;
 
 class Home extends \Core\Controller
 {
@@ -81,6 +84,18 @@ class Home extends \Core\Controller
      */
     public function friendsAction()
     {
+        $queue = new Queue();
+        $queue->worker('hello');
+        /*set_time_limit(60);
+        $i = 0;
+        while ($i<=600)
+        {
+            $queue->send('hello', "This is mess $i!");
+            echo "i=$i ";
+            sleep(100);
+            $i++;
+        }*/
+
         $friends = Friend::getAll();
 
         View::renderTemplate('home/friends.html', [

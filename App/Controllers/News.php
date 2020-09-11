@@ -32,7 +32,6 @@ class News extends \Core\Controller
             $post = new Post();
             $post->id_author = $user[0]['id'];
             $post->text = $_POST['text'];
-
             $post->save();
         }
         header('Location: '. $_SERVER['REQUEST_SCHEME'] .'://'. $_SERVER['HTTP_HOST'] .'/index.php?home/feed');

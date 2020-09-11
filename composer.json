@@ -7,6 +7,8 @@
         }
     ],
     "require": {
-        "twig/twig": "^3.0"
+        "twig/twig": "^3.0",
+        "twig/intl-extra": "^3.0",
+	    "php-amqplib/php-amqplib": ">=2.9.0"
     }
 }
